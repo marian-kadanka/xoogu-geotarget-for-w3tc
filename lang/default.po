@@ -1,0 +1,84 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Xoogu GeoTarget Extension for W3TC\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-01 14:46+0000\n"
+"PO-Revision-Date: 2017-01-01 14:46+0000\n"
+"Last-Translator: xoogu.com <info@xoogu.com>\n"
+"Language-Team: info@xoogu.com\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext;_n;__ngettext_noop;_n_noop;_x;_nx;"
+"_nx_noop;_ex;esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;"
+"esc_html_x;_c;_nc\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../lib/Xoogu/W3TC/Geotarget/EnableExtension.php:22
+msgid "Geo targeted caching"
+msgstr ""
+
+#: ../lib/Xoogu/W3TC/Geotarget/EnableExtension.php:24
+msgid "Cache pages on a per country basis"
+msgstr ""
+
+#: ../lib/Xoogu/W3TC/Geotarget/EnableExtension.php:49
+msgid "Page cache is not enabled."
+msgstr ""
+
+#: ../lib/Xoogu/W3TC/Geotarget/EnableExtension.php:52
+msgid "Page cache method must be 'Disk: Enhanced'."
+msgstr ""
+
+#: ../lib/Xoogu/W3TC/Geotarget/EnableExtension.php:56
+msgid ""
+"Requires your web server has GeoIP functionality available or the PHP GeoIP "
+"extension is installed. It does not appear that either are available."
+msgstr ""
+
+#: ../lib/Xoogu/W3TC/Geotarget/Geotarget_Admin.php:99
+msgid "You must choose at least two countries that will see different content"
+msgstr ""
+
+#: ../lib/Xoogu/W3TC/Geotarget/Geotarget_Admin.php:100
+#, php-format
+msgid "%s is not a valid country code"
+msgstr ""
+
+#: ../lib/Xoogu/W3TC/Geotarget/Geotarget_Admin.php:101
+msgid "You must choose a default country"
+msgstr ""
+
+#: ../lib/Xoogu/W3TC/Geotarget/Geotarget_Admin.php:214
+msgid "Plugin configuration successfully updated."
+msgstr ""
+
+#: ../tpl/admin-page.php:7
+msgid ""
+"Allows pages to be cached / retrieved on a per-country basis, using the "
+"user's IP address to determine which country they come from."
+msgstr ""
+
+#: ../tpl/admin-page.php:20
+msgid "Countries that pages should be cached separately for"
+msgstr ""
+
+#: ../tpl/admin-page.php:45
+msgid "Default country"
+msgstr ""
+
+#: ../tpl/admin-page.php:52
+msgid "Late caching:"
+msgstr ""
+
+#: ../tpl/admin-page.php:56
+msgid ""
+"Late caching must be enabled to allow the cache key to be filtered on cache "
+"retrieval. You can leave it disabled if the cache key only needs modifying "
+"on cache storage (i.e. if you are using a rule at the webserver level that "
+"takes account of the user's country to retrieve from cache)."
+msgstr ""

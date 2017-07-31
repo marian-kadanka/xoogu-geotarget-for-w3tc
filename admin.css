@@ -1,0 +1,8 @@
+input.error {
+	border: 1px solid #f00;
+}
+#w3tc div.error ul, #w3tc div.error li {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
