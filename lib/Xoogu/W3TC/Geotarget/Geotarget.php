@@ -34,8 +34,8 @@ class Geotarget
 			$sIP = !empty($_SERVER["HTTP_X_FORWARDED_FOR"]) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER['REMOTE_ADDR'];
 			$sCountryCode = geoip_country_code_by_name($sIP);
 		}
-		if (function_exists('apply_filter')) {
-			$sCountryCode = apply_filter('xoogu-geotarget-w3tc-countrycode', $sCountryCode);
+		if (function_exists('apply_filters')) {
+			$sCountryCode = apply_filters('xoogu-geotarget-w3tc-countrycode', $sCountryCode);
 		}
 		return $_SERVER['GEOIP_COUNTRY_CODE'] = in_array($sCountryCode, $this->_aCountries) ? $sCountryCode : $this->_sDefaultCountry;
 	}
@@ -52,11 +52,9 @@ class Geotarget
 		$sExt = substr($sKey, $iPos);
 		$sKey = substr($sKey, 0, $iPos);
 		if ( $sExt === '.html' || $sExt === '.html_gzip' ) {
-			$sKey .= '_'.$this->filterCountryCode($sCountryCode);
+			$sKey .= '_'.$this->filterCountryCode();
 		}
 		$sKey = $sKey.$sExt;
 		return $sKey;
 	}
 }
-
-
