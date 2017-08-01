@@ -87,7 +87,7 @@ class Geotarget_Admin extends Geotarget {
 	 */
 	public function adminInit()
     {
-		if ($_GET['extension'] != 'xoogu-geotarget-w3tc') {
+		if ( ! isset( $_GET['extension'] ) || $_GET['extension'] != 'xoogu-geotarget-w3tc') {
 			return;
 		}
 		//get the list of all country codes and names
