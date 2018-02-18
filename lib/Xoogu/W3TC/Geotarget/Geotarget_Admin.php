@@ -38,50 +38,9 @@ class Geotarget_Admin extends Geotarget {
                 do_action('w3tc_activate_extension_xoogu-geotarget-w3tc');
             }
         }
-
-        //when cache for a post is cleared, clear all our geo-keyed versions of the post from the cache
-		add_filter('w3tc_pagecache_flush_url_keys', array($this, 'flushURL'));
-
     }
 
 
-
-
-  	/**
-	 * Hook into the w3tc_pagecache_flush_url_keys action, so when the cache is cleared we can clear all country variations
-	 * @param array $aPageKeys Page keys to remove cached items of
-	 */ 
-	public function flushURL($aPageKeys)
-	{
-		$aReturnPageKeys = array();
-		$aCountries = $this->_aCountries;
-		if (!in_array($this->_sDefaultCountry, $aCountries)) {
-			$aCountries[] = $this->_sDefaultCountry;
-		}
-		foreach ($aPageKeys as $sPageKey) {
-			$aReturnPageKeys[] = $sPageKey;
-			foreach($aCountries as $sCountryCode) {
-				$this->_flushCountryCode = $sCountryCode;
-				$sNewPageKey = $this->modifyKey($sPageKey);
-				if ($sNewPageKey != $sPageKey) {
-					$aReturnPageKeys[] = $sNewPageKey;
-				}
-			}
-		}
-		$this->_flushCountryCode = null;
-		return $aReturnPageKeys;
-	}
-
-	/**
-	 * Override the filterCountryCode method from Geotarget class so that the generated page key will use the countrycode we currently want to flush the cache page for
-	 * @return string The countrycode to flush the cache for (or the user's countrycode if we're not currently flushing the cache)
-	 */
-	public function filterCountryCode()
-	{
-		return $this->_flushCountryCode ? $this->_flushCountryCode : parent::filterCountryCode();
-	}
-
-    
     /**
 	 *Initializes the settings for the admin page
 	 */

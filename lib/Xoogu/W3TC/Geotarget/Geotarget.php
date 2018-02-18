@@ -9,6 +9,7 @@ class Geotarget
     protected $_sDefaultCountry;
     //@param W3_Config holding the various W3TC settings
     protected $_oW3TCConfig;
+	 protected $_flushCountryCode;
 	
 	
 	public function __construct()
@@ -18,6 +19,9 @@ class Geotarget
         $this->_aCountries = isset($aSettings['countries']) ? $aSettings['countries'] : array();
         $this->_sDefaultCountry = isset($aSettings['default-country']) ? $aSettings['default-country'] : 'US';
 		add_filter('w3tc_page_extract_key', array($this, 'modifyKey'));
+
+		//when cache for a post is cleared, clear all our geo-keyed versions of the post from the cache
+		add_filter('w3tc_pagecache_flush_url_keys', array($this, 'flushURL'));
 	}
 	
 	
@@ -52,9 +56,35 @@ class Geotarget
 		$sExt = substr($sKey, $iPos);
 		$sKey = substr($sKey, 0, $iPos);
 		if ( $sExt === '.html' || $sExt === '.html_gzip' ) {
-			$sKey .= '_'.$this->filterCountryCode();
+			$sKey .= '_'.( $this->_flushCountryCode ? $this->_flushCountryCode : $this->filterCountryCode() );
 		}
 		$sKey = $sKey.$sExt;
 		return $sKey;
+	}
+
+
+  	/**
+	 * Hook into the w3tc_pagecache_flush_url_keys action, so when the cache is cleared we can clear all country variations
+	 * @param array $aPageKeys Page keys to remove cached items of
+	 */ 
+	public function flushURL($aPageKeys)
+	{
+		$aReturnPageKeys = array();
+		$aCountries = $this->_aCountries;
+		if (!in_array($this->_sDefaultCountry, $aCountries)) {
+			$aCountries[] = $this->_sDefaultCountry;
+		}
+		foreach ($aPageKeys as $sPageKey) {
+			$aReturnPageKeys[] = $sPageKey;
+			foreach($aCountries as $sCountryCode) {
+				$this->_flushCountryCode = $sCountryCode;
+				$sNewPageKey = $this->modifyKey($sPageKey);
+				if ($sNewPageKey != $sPageKey) {
+					$aReturnPageKeys[] = $sNewPageKey;
+				}
+			}
+		}
+		$this->_flushCountryCode = null;
+		return $aReturnPageKeys;
 	}
 }
